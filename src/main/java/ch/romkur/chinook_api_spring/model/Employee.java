@@ -4,14 +4,16 @@ import ch.romkur.chinook_api_spring.dto.EmployeeDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Entity  @Table(name ="employee") @Data
 public class Employee {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name ="employeeid") private Integer id;
 
     @OneToOne @JoinColumn(name = "reportsto") private Employee reportsTo;
 
-    @Column(name = "birthdate") private String birthDate;
-    @Column(name = "hiredate") private String hireDate;
+    @Column(name = "birthdate") private LocalDate birthDate;
+    @Column(name = "hiredate") private LocalDate hireDate;
     @Column(name = "firstname") private String firstName;
     @Column(name = "lastname") private String lastName;
     @Column(name = "title") private String title;
