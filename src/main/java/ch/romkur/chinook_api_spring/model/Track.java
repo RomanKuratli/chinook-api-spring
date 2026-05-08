@@ -1,14 +1,20 @@
 package ch.romkur.chinook_api_spring.model;
 
+import ch.romkur.chinook_api_spring.dto.TrackDto;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-@Entity
-@Table(name = "track")
-@Data
+@Data @Entity @Table(name = "track")
 public class Track {
+    public static List<TrackDto> toDtoList(List<Track> inp) {
+        return inp.stream()
+                .map(Track::toDto)
+                .toList();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trackid")
@@ -28,10 +34,23 @@ public class Track {
     @JoinColumn(name = "genreid")
     private Genre genre;
 
-    private String composer;
-    private Integer milliseconds;
-    private Integer bytes;
+    @Column(name = "composer")private String composer;
+    @Column(name = "milliseconds")private Integer milliseconds;
+    @Column(name = "bytes")private Integer bytes;
 
     @Column(name = "unitprice")
     private BigDecimal unitPrice;
+
+    public TrackDto toDto() {
+        return new TrackDto(
+                id,
+                name,
+                mediaType.getName(),
+                genre.getName(),
+                composer,
+                milliseconds,
+                bytes,
+                unitPrice
+        );
+    }
 }

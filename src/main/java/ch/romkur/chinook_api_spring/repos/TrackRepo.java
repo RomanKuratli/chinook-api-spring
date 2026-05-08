@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TrackRepo extends JpaRepository<Track, Integer> {
     List<Track> findByAlbumId(Integer albumId);
+    List<Track> findByGenreId(Integer genreId);
 }

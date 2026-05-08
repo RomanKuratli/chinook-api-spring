@@ -4,6 +4,8 @@ import ch.romkur.chinook_api_spring.model.Artist;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table(name = "genre")
 @Data
@@ -14,4 +16,8 @@ public class Genre {
     private Integer id;
 
     private String name;
+
+    @OneToMany
+    @JoinColumn(name = "genreid")
+    private List<Track> tracks;
 }
